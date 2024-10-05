@@ -1,0 +1,68 @@
+// Array to store your skills
+const skills = [
+    "Python",
+    "SQL",
+    "R (Basic)",
+    "C (Basic)",
+    "Power BI",
+    "Tableau",
+    "Excel",
+    "Data Cleaning",
+    "Exploratory Data Analysis (EDA)",
+    "Machine Learning"
+];
+
+// Dynamically add skills to the Skills Summary section
+function loadSkills() {
+    const skillsList = document.getElementById("skills-list");
+    let ul = document.createElement('ul');
+
+    skills.forEach(skill => {
+        let li = document.createElement('li');
+        li.textContent = skill;
+        ul.appendChild(li);
+    });
+
+    skillsList.appendChild(ul);
+}
+
+// Scroll to reveal sections (Lazy loading for sections)
+function revealOnScroll() {
+    const sections = document.querySelectorAll('section');
+
+    sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        const triggerPoint = window.innerHeight - 100;
+
+        if (sectionTop < triggerPoint) {
+            section.classList.add('visible');
+        }
+    });
+}
+
+// Handle form submission (for contact form)
+function handleFormSubmit(event) {
+    event.preventDefault();  // Prevent actual form submission
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    if (name && email && message) {
+        alert('Thank you for your message! We will get back to you soon.');
+        // Reset the form after submission
+        document.getElementById('contact-form').reset();
+    } else {
+        alert('Please fill in all fields.');
+    }
+}
+
+// Event listeners
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', () => {
+    loadSkills();
+    revealOnScroll();  // Trigger on load in case sections are already visible
+});
+
+// Handle form submission
+document.getElementById('contact-form').addEventListener('submit', handleFormSubmit);
